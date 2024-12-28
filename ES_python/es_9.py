@@ -6,6 +6,7 @@ Creato per l'esame di abilità informatiche e telematiche
 #Importo le librerie necessarie
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 #Definisco una funzione che legge le colonne del file in input
 def leggi_colonne(file_path):
@@ -68,7 +69,19 @@ pos_z_arr = np.array(pos_z)
 matrix_tot = np.array([m_tot_arr, m_gas_arr, m_dm_arr, m_star_arr, m_bh_arr, pos_x_arr, pos_y_arr, pos_z_arr])
 matrix_tot = matrix_tot.T
 
+#Voglio salvare le immagini su desktop quindi cerco il percorso e creo una cartella
+# Funzione per ottenere il percorso del desktop
+def get_desktop_folder():
+    return os.path.join(os.path.expanduser("~"), "Desktop")
 
+# Creo una cartella specifica sul desktop
+def create_folder_on_desktop(folder_name):
+    desktop_path = get_desktop_folder()
+    folder_path = os.path.join(desktop_path, folder_name)
+    os.makedirs(folder_path, exist_ok=True)  # Crea la cartella se non esiste
+    return folder_path
+
+folder_path = create_folder_on_desktop("Grafici_ESAME")
 #---------------------------PUNTO 1-----------------------------
 
 # Calcolo la massa barionica
@@ -78,7 +91,7 @@ m_bar= np.sum(matrix_tot[:, [1,3]], axis=1)
 m_bar_arr= np.array(m_bar)
 
 #Faccio un plot della DM mass di ogni alone (asse y) in funzione della massa barionica (asse x)
-folder_path = "/Users/auroravalentini/desktop/ESAME_AB_INF/es_python/grafici"
+
 file_name1a = "Grafico_1a.png"
 file_path1a = folder_path + "/" + file_name1a
 
